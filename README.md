@@ -1,1 +1,0 @@
-# projeto-avaliativo-fullstrack-nv1
