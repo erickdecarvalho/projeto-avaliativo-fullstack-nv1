@@ -26,6 +26,11 @@ public class VehicleModel {
 
     private Integer year;
 
+    private String brand;
+
+    @Column(unique = true)
+    private String licensePlate;
+
     private Boolean rented;
 
     @ManyToOne

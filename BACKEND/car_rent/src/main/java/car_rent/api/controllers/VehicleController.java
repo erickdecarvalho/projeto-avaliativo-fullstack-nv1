@@ -1,17 +1,17 @@
 package car_rent.api.controllers;
 
+import car_rent.api.dtos.AddVehicleDto;
 import car_rent.api.models.TypeVehicleModel;
 import car_rent.api.models.VehicleModel;
 import car_rent.api.services.VehicleService;
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,6 +38,13 @@ public class VehicleController {
     return ResponseEntity.status(HttpStatus.OK)
             .body(vehicleService.getVehicles(type, minYear, maxYear,color, rented, officeName, pageable).getContent());
 
+    }
+
+    @PostMapping
+    public ResponseEntity<VehicleModel> addVehicle (@RequestBody @Valid AddVehicleDto vehicleDto){
+        VehicleModel vehicle = new VehicleModel();
+        BeanUtils.copyProperties(vehicleDto,vehicle);
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleService.addVehicles(vehicle));
     }
 
 }

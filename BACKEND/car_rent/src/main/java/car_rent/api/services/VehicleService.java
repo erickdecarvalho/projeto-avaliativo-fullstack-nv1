@@ -29,4 +29,8 @@ public class VehicleService {
 
         return vehicleRepository.findAll(spec, pageable );
     }
+
+    public VehicleModel addVehicles (VehicleModel vehicle){
+        return vehicleRepository.save(vehicle);
+    }
 }
