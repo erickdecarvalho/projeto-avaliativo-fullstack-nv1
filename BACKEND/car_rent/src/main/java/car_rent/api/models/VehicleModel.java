@@ -33,10 +33,6 @@ public class VehicleModel {
 
     private Boolean rented;
 
-    @ManyToOne
-    @JsonIgnore
-    private RentalOfficeModel office;
-
     @OneToOne
     @JsonIgnore
     private RentalModel rental;
