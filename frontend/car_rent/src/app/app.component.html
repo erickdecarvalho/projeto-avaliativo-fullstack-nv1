@@ -1,16 +1,16 @@
 <main class="h-screen">
     <header>
-        <nav class="container mx-auto flex items-center border-2 border-red-300 p-4">
+        <nav class="container mx-auto flex items-center justify-between border-2 border-red-300 p-4">
             <span class="mr-4">
                 <a href="#" class="">
                     <fa-icon [icon]="['fas', 'home']"></fa-icon>
                 </a>
             </span>
-            <ul class="flex space-x-4">
+            <ul class="flex justify-between items-center">
                 <li><a href="#" class="">Sobre</a></li>
                 <li><a href="#" class="">Blog</a></li>
                 <li><a href="#" class="">Contato</a></li>
-                <li class="text-[#33ff00]">TETE</li>
+                <li><button (click)="toggleTheme()">Tema</button></li>
             </ul>
         </nav>
     </header>

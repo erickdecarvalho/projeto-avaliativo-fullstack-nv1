@@ -15,9 +15,10 @@
 
 /* Variables
   ---------------------------------------------------------------------------------------------- */
-$graphite: #212529
-$dark: #171717
-$light: #f5f1eb
+$slate-900: #0f172a
+$slate-800: #1e293b
+$slate-300: #d4d4d8
+$slate-50: #fafafa
 $link: #4493f8
 $font-sizes: h1 2.5rem, h2 2rem, h3 1.75rem, h4 1.5rem
 
@@ -57,7 +58,6 @@ body
     text-decoration: none
     padding: 0
     margin: 0
-
 /* End Reset ----------------------------------------------------------------------------------- */
 
 /* Mixins
@@ -69,48 +69,25 @@ body
   transition: $props $time $timing-function
 
 @mixin theme-styles($color, $border-color, $bg-primary, $bg-secondary)
-  $darken: adjust-color($bg-primary, $lightness: - 20%)
+  $darken: adjust-color($bg-primary, $lightness: - 50%)
   body
     color: $color
     background: $bg-secondary
     @include transition(0.2s, color)
   header
     position: fixed
-    padding-top: 10px
     width: 100vw
     height: 10vh
-    min-height: 50px
+    min-height: 56px
     max-height: 60px
     border-bottom: 1px solid $bg-primary
     box-shadow: 0 1px 6px $darken
-    background-color: $bg-secondary
+    background-color: $bg-primary
     display: flex
     justify-content: center
     align-items: center
-  section
-    background-color: $bg-primary
-    border-radius: 8px
-    padding: 16px
-    .card
-      padding: 12px
-      border-radius: 8px
-      cursor: pointer
-      background-color: $bg-secondary
-      &:hover
-        transform: scale(1.01)
-        filter: brightness(1.1)
-        @include transition(300ms)
-  .navbar-menu
-    display: flex
-    justify-content: space-between
-    align-items: center
-    width: 100%
-    gap: 1.5rem
-    padding: 0
-    margin: 0
   a
     text-decoration: none
-    font-weight: bold
     padding: 0.5rem 1rem
     border-radius: 0.25rem
     color: $color
@@ -120,7 +97,8 @@ body
       transform: scale(1.1)
       @include transition(400ms)
   button
-    padding: 4px
+    font-size: 0.9rem
+    padding: 6px
     color: $color
     border: 1px solid $color
     border-radius: 12px
@@ -132,66 +110,26 @@ body
       color: $bg-primary
       background-color: $color
       @include transition()
-  button.spotify > a:hover
-    background-color: $color
-    color: #1DB954
-  #form-search
-    float: right
-  input[type="text"]
-    border: 1px solid $color
+
 /* End Mixins ---------------------------------------------------------------------------------- */
 
 /* Dark Theme
   ---------------------------------------------------------------------------------------------- */
 [data-theme="dark"]
-  $bg-primary: $dark
-  $bg-secondary: $graphite
-  $foreground: $light
-  @include theme-styles($foreground, $dark, $bg-primary, $bg-secondary)
-  a
-    color: $link
+  $bg-primary: $slate-900
+  $bg-secondary: $slate-800
+  $foreground: $slate-50
+  @include theme-styles($foreground, $slate-800, $slate-900, $slate-800)
 /* End Dark Theme ------------------------------------------------------------------------------ */
 
 /* Light Theme
   ---------------------------------------------------------------------------------------------- */
 [data-theme="light"]
-  $bg-secondary: #fff
-  $bg-primary: $light
-  $foreground: $dark
-  @include theme-styles($foreground, $light, $bg-primary, $bg-secondary)
+  $bg-secondary: $slate-50
+  $bg-primary: $slate-300
+  $foreground: $slate-900
+  @include theme-styles($foreground, $slate-50, $slate-300, $slate-50)
 /* End Light Theme ----------------------------------------------------------------------------- */
 
-.container
-  margin: 0 10px
-  padding: 0 10px
-
-.container-flex
-  display: flex
-  justify-content: space-between
-  align-items: center
-  width: auto
-  max-width: 100%
-  padding-top: 10px
-  padding-right: 20px
-
-.grid-container
-  margin-top: 80px
-
-.inline-child
-  list-style: none
-  align-items: center
-  display: flex
-  margin: 0
-  padding: 0
-
-  li
-    padding-left: 10px
-    display: flex
-    align-items: center
-
-    &:first-child
-      padding-left: 0
-
-.fa-icon
-  display: flex
-  align-items: center
+// TODO: Adicione Estilo em seletores que nao precisam de temna abaixo.
+//  Estilos para seletores que terao uma cor especifia em cada tema, deve ser adicionado no em Mixins.
