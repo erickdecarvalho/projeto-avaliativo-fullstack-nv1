@@ -5,6 +5,8 @@ import car_rent.api.models.VehicleModel;
 import car_rent.api.repositories.VehicleRepository;
 import car_rent.api.services.specification.VehicleSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,8 @@ public class VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    public List<VehicleModel> getVehicles(
-            TypeVehicleModel type, Integer minYear, Integer maxYear, String color, Boolean rented, String officeName){
+    public Page<VehicleModel> getVehicles(
+            TypeVehicleModel type, Integer minYear, Integer maxYear, String color, Boolean rented, String officeName, Pageable pageable){
         Specification<VehicleModel> spec = Specification
                 .where(VehicleSpecification.hasColor(color))
                 .and(VehicleSpecification.hasOffice(officeName))
@@ -25,6 +27,6 @@ public class VehicleService {
                 .and(VehicleSpecification.hasRented(rented))
                 .and(VehicleSpecification.hasType(type));
 
-        return vehicleRepository.findAll(spec);
+        return vehicleRepository.findAll(spec, pageable );
     }
 }
