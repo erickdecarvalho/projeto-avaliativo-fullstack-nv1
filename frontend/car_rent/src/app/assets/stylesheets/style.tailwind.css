@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Table of Content
+-----------------------------
+1.0 Components
+1.1 section
+1.2 .about
+-------------------------- */
+
+/* Components
+------------------------------------------------------------------------------------------------ */
+@layer components {
+    section {
+        @apply rounded-lg shadow-lg text-left overflow-hidden
+    }
+
+    .about {
+        @apply leading-relaxed max-w-4xl;
+    }
+}
