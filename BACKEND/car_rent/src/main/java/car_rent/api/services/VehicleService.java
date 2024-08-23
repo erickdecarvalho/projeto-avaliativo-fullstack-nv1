@@ -33,4 +33,11 @@ public class VehicleService {
     public VehicleModel addVehicles (VehicleModel vehicle){
         return vehicleRepository.save(vehicle);
     }
+
+    public VehicleModel deleteVehicle(Long id){
+        VehicleModel vehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found!"));
+        vehicleRepository.delete(vehicle);
+        return vehicle;
+    }
 }
