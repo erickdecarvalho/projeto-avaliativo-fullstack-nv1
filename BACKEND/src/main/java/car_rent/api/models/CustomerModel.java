@@ -22,7 +22,7 @@ public class CustomerModel {
 
     private String name;
 
-    @OneToMany(mappedBy = "Customer")
+    @OneToMany(mappedBy = "customer")
     private List<RentalModel> rentals;
 
     private String phone;

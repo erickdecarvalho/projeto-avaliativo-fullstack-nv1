@@ -1,5 +1,6 @@
 package car_rent.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class VehicleModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private TypeVehicleModel type;
     
     private String color;
@@ -27,9 +29,11 @@ public class VehicleModel {
     private Boolean rented;
 
     @ManyToOne
+    @JsonIgnore
     private RentalOfficeModel office;
 
     @OneToOne
+    @JsonIgnore
     private RentalModel rental;
 
 
