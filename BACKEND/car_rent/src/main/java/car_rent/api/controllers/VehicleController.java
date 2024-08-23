@@ -1,6 +1,6 @@
 package car_rent.api.controllers;
 
-import car_rent.api.dtos.AddVehicleDto;
+import car_rent.api.dtos.VehicleDto;
 import car_rent.api.models.TypeVehicleModel;
 import car_rent.api.models.VehicleModel;
 import car_rent.api.services.VehicleService;
@@ -36,15 +36,20 @@ public class VehicleController {
             ){
         Pageable pageable = PageRequest.of(page, size);
     return ResponseEntity.status(HttpStatus.OK)
-            .body(vehicleService.getVehicles(type, minYear, maxYear,color, rented, officeName, pageable).getContent());
+            .body(vehicleService.getVehicles(type, minYear, maxYear,color, rented, pageable).getContent());
 
     }
 
     @PostMapping
-    public ResponseEntity<VehicleModel> addVehicle (@RequestBody @Valid AddVehicleDto vehicleDto){
+    public ResponseEntity<VehicleModel> addVehicle (@RequestBody @Valid VehicleDto vehicleDto){
         VehicleModel vehicle = new VehicleModel();
         BeanUtils.copyProperties(vehicleDto,vehicle);
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.addVehicles(vehicle));
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<VehicleModel> updateVehicle (@PathVariable(value = "id") Long id, @RequestBody @Valid VehicleDto vehicleDto){
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleService.updateVehicle(id, vehicleDto));
     }
 
     @DeleteMapping(path = "/{id}")

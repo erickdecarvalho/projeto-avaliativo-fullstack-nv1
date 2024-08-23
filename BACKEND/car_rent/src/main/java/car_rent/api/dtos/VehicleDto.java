@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddVehicleDto {
+public class VehicleDto {
 
     private TypeVehicleModel type;
 
@@ -23,7 +23,7 @@ public class AddVehicleDto {
 
     private Boolean rented;
 
-    public AddVehicleDto(TypeVehicleModel type, String color, Integer year, String brand, String licensePlate ) {
+    public VehicleDto(TypeVehicleModel type, String color, Integer year, String brand, String licensePlate ) {
         this.type = type;
         this.color = color;
         this.year = year;

@@ -1,16 +1,17 @@
 package car_rent.api.services;
 
+import car_rent.api.dtos.VehicleDto;
 import car_rent.api.models.TypeVehicleModel;
 import car_rent.api.models.VehicleModel;
 import car_rent.api.repositories.VehicleRepository;
 import car_rent.api.services.specification.VehicleSpecification;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class VehicleService {
@@ -19,10 +20,9 @@ public class VehicleService {
     private VehicleRepository vehicleRepository;
 
     public Page<VehicleModel> getVehicles(
-            TypeVehicleModel type, Integer minYear, Integer maxYear, String color, Boolean rented, String officeName, Pageable pageable){
+            TypeVehicleModel type, Integer minYear, Integer maxYear, String color, Boolean rented, Pageable pageable){
         Specification<VehicleModel> spec = Specification
                 .where(VehicleSpecification.hasColor(color))
-                .and(VehicleSpecification.hasOffice(officeName))
                 .and(VehicleSpecification.hasYear(minYear,maxYear))
                 .and(VehicleSpecification.hasRented(rented))
                 .and(VehicleSpecification.hasType(type));
@@ -34,10 +34,22 @@ public class VehicleService {
         return vehicleRepository.save(vehicle);
     }
 
+    public VehicleModel updateVehicle (Long id, VehicleDto vehicleDto){
+        VehicleModel vehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found!"));
+
+        BeanUtils.copyProperties(vehicleDto, vehicle);
+        vehicleRepository.save(vehicle);
+        return vehicle;
+
+    }
+
     public VehicleModel deleteVehicle(Long id){
         VehicleModel vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vehicle not found!"));
         vehicleRepository.delete(vehicle);
         return vehicle;
     }
+
+
 }

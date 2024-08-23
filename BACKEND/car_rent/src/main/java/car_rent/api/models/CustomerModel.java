@@ -1,5 +1,6 @@
 package car_rent.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +23,9 @@ public class CustomerModel {
 
     private String name;
 
+
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private List<RentalModel> rentals;
 
     private String phone;

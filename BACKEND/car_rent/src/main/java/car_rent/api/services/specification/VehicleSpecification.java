@@ -28,15 +28,6 @@ public class VehicleSpecification {
     }
 
 
-    public static Specification<VehicleModel> hasOffice ( String officeName){
-        return ((root, query, criteriaBuilder) -> {
-           if (officeName == null ) return null;
-           else {
-               //TODO: FUNÇÃO PARA ENCONTRAR CARROS ATRVÉS DO OFFICE
-               return  null;
-           }
-        });
-    }
 
     public static Specification<VehicleModel> hasRented(Boolean rented){
         return ((root, query, criteriaBuilder) ->{
