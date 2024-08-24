@@ -33,7 +33,8 @@
             ],
             "styles": [
               "src/app/assets/stylesheets/style.tailwind.css",
-              "src/app/assets/stylesheets/styles.sass"
+              "src/app/assets/stylesheets/styles.sass",
+              "src/app/assets/stylesheets/styles.css"
             ],
             "scripts": []
           },
@@ -43,7 +44,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -93,7 +94,8 @@
             ],
             "styles": [
               "src/app/assets/stylesheets/style.tailwind.css",
-              "src/app/assets/stylesheets/styles.sass"
+              "src/app/assets/stylesheets/styles.sass",
+              "src/app/assets/stylesheets/styles.css"
             ],
             "scripts": []
           }

@@ -1,0 +1,33 @@
+<header class="px-10">
+    <nav class="container mx-auto flex items-center justify-between p-4">
+        <ul class="flex space-x-4 items-center">
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+        <button (click)="toggleTheme()" class="border px-4 py-2 rounded">Tema</button>
+    </nav>
+</header>
+
+<div class="flex h-screen pt-[10vh]">
+    <span>
+        <span role="button" aria-label="Slidebar" class="ml-8" (click)="toggleSidebar()"> <fa-icon [icon]="['fas', 'bars']" size="lg"></fa-icon></span>
+        <sidebar [isSidebarExpanded]="isSidebarExpanded" class="transition-all duration-300"></sidebar>
+    </span>
+    <main class="flex-1 p-6 overflow-y-auto transition-all duration-300">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="card p-6 rounded-lg shadow">
+                <h2 class="text-xl font-bold">Usuarios</h2>
+                <p class="text-2xl">2</p>
+            </div>
+            <div class="card p-6 rounded-lg shadow">
+                <h2 class="text-xl font-bold">Veiculos disponiveis</h2>
+                <p class="text-2xl">8</p>
+            </div>
+            <div class="card p-6 rounded-lg shadow">
+                <h2 class="text-xl font-bold">Veiculos alugados</h2>
+                <p class="text-2xl">6</p>
+            </div>
+        </div>
+    </main>
+</div>
