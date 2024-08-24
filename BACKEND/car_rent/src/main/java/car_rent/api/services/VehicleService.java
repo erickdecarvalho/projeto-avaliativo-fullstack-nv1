@@ -35,7 +35,7 @@ public class VehicleService {
     public VehicleModel getVehicleByID(Long id){
 
         return vehicleRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Veículo não encontrado."));
+                .orElseThrow(() -> new NotFoundException("Vehicle not found."));
     }
 
     @Transactional
@@ -46,7 +46,7 @@ public class VehicleService {
     @Transactional
     public VehicleModel updateVehicle(Long id, VehicleDto vehicleDto) {
         VehicleModel vehicle = vehicleRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Veículo não encontrado."));
+                .orElseThrow(() -> new NotFoundException("Vehicle not found."));
 
         BeanUtils.copyProperties(vehicleDto, vehicle);
         return vehicleRepository.save(vehicle);
@@ -55,7 +55,7 @@ public class VehicleService {
     @Transactional
     public VehicleModel deleteVehicle(Long id){
         VehicleModel vehicle = vehicleRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Veículo não encontrado."));
+                .orElseThrow(() -> new NotFoundException("Vehicle not found."));
         vehicleRepository.delete(vehicle);
         return vehicle;
     }

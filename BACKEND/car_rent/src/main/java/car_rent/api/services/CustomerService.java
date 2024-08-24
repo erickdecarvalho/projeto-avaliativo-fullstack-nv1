@@ -1,6 +1,7 @@
 package car_rent.api.services;
 
 import car_rent.api.dtos.CustomerDto;
+import car_rent.api.exceptions.NotFoundException;
 import car_rent.api.models.CustomerModel;
 import car_rent.api.repositories.CustomerRepository;
 import car_rent.api.services.specification.CustomerScpecification;
@@ -30,7 +31,7 @@ public class CustomerService {
     public CustomerModel getCustomerById(Long id){
 
         return customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found!"));
+                .orElseThrow(() -> new NotFoundException("Customer not found."));
     }
 
     @Transactional
@@ -41,7 +42,7 @@ public class CustomerService {
     @Transactional
     public CustomerModel updateCustomer (Long id, CustomerDto customerDto){
         CustomerModel customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found!"));
+                .orElseThrow(() -> new NotFoundException("Customer not found."));
 
         BeanUtils.copyProperties(customerDto, customer);
         customerRepository.save(customer);
@@ -52,7 +53,7 @@ public class CustomerService {
     @Transactional
     public CustomerModel deleteCustomer(Long id){
         CustomerModel customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found!"));
+                .orElseThrow(() -> new NotFoundException("Customer not found."));
         customerRepository.delete(customer);
         return customer;
     }

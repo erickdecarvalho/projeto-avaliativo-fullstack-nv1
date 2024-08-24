@@ -16,7 +16,7 @@ public class GlobalExceptions {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-        String errorMessage = "Erro de integridade de dados: " + ex.getRootCause().getMessage();
+        String errorMessage = "Data integrity error: " + ex.getRootCause().getMessage();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
     }
 
