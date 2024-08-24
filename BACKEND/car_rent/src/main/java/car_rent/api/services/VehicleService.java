@@ -1,10 +1,12 @@
 package car_rent.api.services;
 
 import car_rent.api.dtos.VehicleDto;
+import car_rent.api.exceptions.NotFoundException;
 import car_rent.api.models.TypeVehicleModel;
 import car_rent.api.models.VehicleModel;
 import car_rent.api.repositories.VehicleRepository;
 import car_rent.api.services.specification.VehicleSpecification;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,26 +35,27 @@ public class VehicleService {
     public VehicleModel getVehicleByID(Long id){
 
         return vehicleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vehicle not found!"));
+                .orElseThrow(() -> new NotFoundException("Vehicle not found."));
     }
 
+    @Transactional
     public VehicleModel addVehicles (VehicleModel vehicle){
         return vehicleRepository.save(vehicle);
     }
 
-    public VehicleModel updateVehicle (Long id, VehicleDto vehicleDto){
+    @Transactional
+    public VehicleModel updateVehicle(Long id, VehicleDto vehicleDto) {
         VehicleModel vehicle = vehicleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vehicle not found!"));
+                .orElseThrow(() -> new NotFoundException("Vehicle not found."));
 
         BeanUtils.copyProperties(vehicleDto, vehicle);
-        vehicleRepository.save(vehicle);
-        return vehicle;
-
+        return vehicleRepository.save(vehicle);
     }
 
+    @Transactional
     public VehicleModel deleteVehicle(Long id){
         VehicleModel vehicle = vehicleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Vehicle not found!"));
+                .orElseThrow(() -> new NotFoundException("Vehicle not found."));
         vehicleRepository.delete(vehicle);
         return vehicle;
     }

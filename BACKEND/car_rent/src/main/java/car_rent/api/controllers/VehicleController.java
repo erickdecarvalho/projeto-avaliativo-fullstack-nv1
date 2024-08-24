@@ -1,19 +1,23 @@
 package car_rent.api.controllers;
 
 import car_rent.api.dtos.VehicleDto;
-import car_rent.api.models.CustomerModel;
 import car_rent.api.models.TypeVehicleModel;
 import car_rent.api.models.VehicleModel;
 import car_rent.api.services.VehicleService;
+import car_rent.api.utils.PaginationHeaders;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -31,14 +35,14 @@ public class VehicleController {
             @RequestParam(value = "color", required = false) String color,
             @RequestParam(value = "rented", required = false) Boolean rented,
             @RequestParam(value = "officeName",required = false)String officeName,
-            @RequestParam(value = "page",defaultValue = "0", required = false) Integer page,
+            @RequestParam(value = "page",defaultValue = "1", required = false) Integer page,
             @RequestParam(value = "size",defaultValue = "5", required = false) Integer size
-
-            ){
-        Pageable pageable = PageRequest.of(page, size);
-    return ResponseEntity.status(HttpStatus.OK)
-            .body(vehicleService.getVehicles(type, minYear, maxYear,color, rented, pageable).getContent());
-
+    ) {
+        if (page < 1) page = 1;
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<VehicleModel> vehiclePage = vehicleService.getVehicles(type, minYear, maxYear, color, rented, pageable);
+        HttpHeaders headers = PaginationHeaders.createPaginationHeaders(vehiclePage);
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(vehiclePage.getContent());
     }
 
     @GetMapping(path = "/{id}")
@@ -50,13 +54,17 @@ public class VehicleController {
     public ResponseEntity<VehicleModel> addVehicle (@RequestBody @Valid VehicleDto vehicleDto){
         VehicleModel vehicle = new VehicleModel();
         BeanUtils.copyProperties(vehicleDto,vehicle);
-        return ResponseEntity.status(HttpStatus.OK).body(vehicleService.addVehicles(vehicle));
+        VehicleModel created = vehicleService.addVehicles(vehicle);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(location).body(created);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<VehicleModel> updateVehicle (@PathVariable(value = "id") Long id, @RequestBody @Valid VehicleDto vehicleDto){
-        return ResponseEntity.status(HttpStatus.OK).body(vehicleService.updateVehicle(id, vehicleDto));
+    public ResponseEntity<VehicleModel> updateVehicle(@PathVariable(value = "id") Long id, @RequestBody @Valid VehicleDto vehicleDto) {
+        VehicleModel updatedVehicle = vehicleService.updateVehicle(id, vehicleDto);
+        return ResponseEntity.ok(updatedVehicle);
     }
+
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteVehicle (@PathVariable(value = "id")Long id){
@@ -65,6 +73,4 @@ public class VehicleController {
         return ResponseEntity.status(HttpStatus.OK).body("Vehicle with id: " + vehicle.getId() + " deleted!");
 
     }
-
-
 }
