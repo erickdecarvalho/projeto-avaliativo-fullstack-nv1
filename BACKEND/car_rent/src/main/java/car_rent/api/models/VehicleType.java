@@ -1,6 +1,6 @@
 package car_rent.api.models;
 
-public enum TypeVehicleModel {
+public enum VehicleType {
     CAR,
     MOTORCYCLE,
     VAN,
