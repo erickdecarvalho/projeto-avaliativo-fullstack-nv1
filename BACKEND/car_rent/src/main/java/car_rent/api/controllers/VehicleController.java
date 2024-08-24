@@ -1,6 +1,7 @@
 package car_rent.api.controllers;
 
 import car_rent.api.dtos.VehicleDto;
+import car_rent.api.models.CustomerModel;
 import car_rent.api.models.TypeVehicleModel;
 import car_rent.api.models.VehicleModel;
 import car_rent.api.services.VehicleService;
@@ -38,6 +39,11 @@ public class VehicleController {
     return ResponseEntity.status(HttpStatus.OK)
             .body(vehicleService.getVehicles(type, minYear, maxYear,color, rented, pageable).getContent());
 
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<VehicleModel> getVehicleById (@PathVariable(value = "id") Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleService.getVehicleByID(id));
     }
 
     @PostMapping
