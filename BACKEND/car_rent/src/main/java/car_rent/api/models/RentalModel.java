@@ -21,7 +21,7 @@ public class RentalModel {
     private VehicleModel vehicle;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private StatusRentalModel status;
 
     private String statusDescription;
 

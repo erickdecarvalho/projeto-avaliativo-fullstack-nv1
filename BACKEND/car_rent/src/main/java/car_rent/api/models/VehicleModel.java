@@ -26,11 +26,12 @@ public class VehicleModel {
 
     private Integer year;
 
-    private Boolean rented;
+    private String brand;
 
-    @ManyToOne
-    @JsonIgnore
-    private RentalOfficeModel office;
+    @Column(unique = true)
+    private String licensePlate;
+
+    private Boolean rented;
 
     @OneToOne
     @JsonIgnore
