@@ -2,23 +2,26 @@ import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {FaIconComponent, FaIconLibrary} from "@fortawesome/angular-fontawesome";
 import {fas} from "@fortawesome/free-solid-svg-icons";
-import {ThemeService} from "./services/theme.service";
+import {SidebarComponent} from "./components/sidebar/sidebar.component";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {NewUserComponent} from "./components/user/new-user/new-user.component";
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, FaIconComponent],
+    imports: [
+        RouterOutlet,
+        FaIconComponent,
+        SidebarComponent,
+        DashboardComponent,
+        NewUserComponent
+    ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.sass'
 })
 export class AppComponent {
-    title = 'car_rent';
 
-    constructor(library: FaIconLibrary, private themeService: ThemeService) {
+    constructor(library: FaIconLibrary) {
         library.addIconPacks(fas);
-    }
-
-    toggleTheme(): void {
-        this.themeService.toggleTheme();
     }
 }
