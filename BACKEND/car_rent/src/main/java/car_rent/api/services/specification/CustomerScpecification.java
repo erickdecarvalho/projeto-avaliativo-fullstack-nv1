@@ -1,8 +1,6 @@
 package car_rent.api.services.specification;
 
 import car_rent.api.models.CustomerModel;
-import car_rent.api.models.TypeVehicleModel;
-import car_rent.api.models.VehicleModel;
 import org.springframework.data.jpa.domain.Specification;
 
 public class CustomerScpecification {

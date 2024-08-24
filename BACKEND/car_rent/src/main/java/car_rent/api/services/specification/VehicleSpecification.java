@@ -1,11 +1,11 @@
 package car_rent.api.services.specification;
 
-import car_rent.api.models.TypeVehicleModel;
+import car_rent.api.models.VehicleType;
 import car_rent.api.models.VehicleModel;
 import org.springframework.data.jpa.domain.Specification;
 
 public class VehicleSpecification {
-    public static Specification<VehicleModel> hasType(TypeVehicleModel type){
+    public static Specification<VehicleModel> hasType(VehicleType type){
         return ((root, query, criteriaBuilder) ->{
             if (type == null) return null;
             else return criteriaBuilder.equal(root.get("type"), type);

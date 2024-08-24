@@ -1,7 +1,7 @@
 package car_rent.api.controllers;
 
 import car_rent.api.dtos.VehicleDto;
-import car_rent.api.models.TypeVehicleModel;
+import car_rent.api.models.VehicleType;
 import car_rent.api.models.VehicleModel;
 import car_rent.api.services.VehicleService;
 import car_rent.api.utils.PaginationHeaders;
@@ -29,7 +29,7 @@ public class VehicleController {
 
     @GetMapping
     public ResponseEntity<List<VehicleModel>> getVehicles(
-            @RequestParam(value = "type", required = false) TypeVehicleModel type,
+            @RequestParam(value = "type", required = false) VehicleType type,
             @RequestParam(value = "minYear", required = false) Integer minYear,
             @RequestParam(value = "maxYear", required = false) Integer maxYear,
             @RequestParam(value = "color", required = false) String color,

@@ -1,7 +1,7 @@
 package car_rent.api.dtos;
 
 
-import car_rent.api.models.TypeVehicleModel;
+import car_rent.api.models.VehicleType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class VehicleDto {
 
-    private TypeVehicleModel type;
+    private VehicleType type;
 
     private String color;
 
@@ -23,7 +23,7 @@ public class VehicleDto {
 
     private Boolean rented;
 
-    public VehicleDto(TypeVehicleModel type, String color, Integer year, String brand, String licensePlate ) {
+    public VehicleDto(VehicleType type, String color, Integer year, String brand, String licensePlate ) {
         this.type = type;
         this.color = color;
         this.year = year;

@@ -2,7 +2,7 @@ package car_rent.api.services;
 
 import car_rent.api.dtos.VehicleDto;
 import car_rent.api.exceptions.NotFoundException;
-import car_rent.api.models.TypeVehicleModel;
+import car_rent.api.models.VehicleType;
 import car_rent.api.models.VehicleModel;
 import car_rent.api.repositories.VehicleRepository;
 import car_rent.api.services.specification.VehicleSpecification;
@@ -22,7 +22,7 @@ public class VehicleService {
     private VehicleRepository vehicleRepository;
 
     public Page<VehicleModel> getVehicles(
-            TypeVehicleModel type, Integer minYear, Integer maxYear, String color, Boolean rented, Pageable pageable){
+            VehicleType type, Integer minYear, Integer maxYear, String color, Boolean rented, Pageable pageable){
         Specification<VehicleModel> spec = Specification
                 .where(VehicleSpecification.hasColor(color))
                 .and(VehicleSpecification.hasYear(minYear,maxYear))
