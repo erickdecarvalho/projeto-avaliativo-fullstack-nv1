@@ -1,19 +1,16 @@
 package car_rent.api.services;
 
 import car_rent.api.dtos.CustomerDto;
-import car_rent.api.dtos.VehicleDto;
 import car_rent.api.models.CustomerModel;
-import car_rent.api.models.VehicleModel;
 import car_rent.api.repositories.CustomerRepository;
 import car_rent.api.services.specification.CustomerScpecification;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CustomerService {
@@ -36,10 +33,12 @@ public class CustomerService {
                 .orElseThrow(() -> new RuntimeException("Customer not found!"));
     }
 
+    @Transactional
     public CustomerModel addCustomer (CustomerModel customer){
         return customerRepository.save(customer);
     }
 
+    @Transactional
     public CustomerModel updateCustomer (Long id, CustomerDto customerDto){
         CustomerModel customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found!"));
@@ -50,6 +49,7 @@ public class CustomerService {
 
     }
 
+    @Transactional
     public CustomerModel deleteCustomer(Long id){
         CustomerModel customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found!"));
