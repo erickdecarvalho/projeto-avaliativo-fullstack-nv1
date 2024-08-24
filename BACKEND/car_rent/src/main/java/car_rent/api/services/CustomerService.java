@@ -30,6 +30,12 @@ public class CustomerService {
         return customerRepository.findAll(spec, pageable);
     }
 
+    public CustomerModel getCustomerById(Long id){
+
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found!"));
+    }
+
     public CustomerModel addCustomer (CustomerModel customer){
         return customerRepository.save(customer);
     }

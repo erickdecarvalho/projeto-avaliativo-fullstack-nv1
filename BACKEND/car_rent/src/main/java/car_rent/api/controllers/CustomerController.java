@@ -40,6 +40,11 @@ public class CustomerController {
 
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<CustomerModel> getCustomerById (@PathVariable(value = "id") Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.getCustomerById(id));
+    }
+
     @PostMapping
     public ResponseEntity<CustomerModel> addCustomer (@RequestBody @Valid CustomerDto customerDto){
         CustomerModel customer = new CustomerModel();

@@ -30,6 +30,12 @@ public class VehicleService {
         return vehicleRepository.findAll(spec, pageable );
     }
 
+    public VehicleModel getVehicleByID(Long id){
+
+        return vehicleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found!"));
+    }
+
     public VehicleModel addVehicles (VehicleModel vehicle){
         return vehicleRepository.save(vehicle);
     }
