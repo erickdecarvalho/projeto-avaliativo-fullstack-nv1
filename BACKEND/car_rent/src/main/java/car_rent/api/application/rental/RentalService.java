@@ -1,5 +1,6 @@
 package car_rent.api.application.rental;
 
+import car_rent.api.application.vehicle.VehicleService;
 import car_rent.api.domain.rental.RentalModel;
 import car_rent.api.domain.rental.StatusRentalType;
 import car_rent.api.domain.rental.validators.RentalValidator;
@@ -19,6 +20,9 @@ public class RentalService {
     private final List<RentalValidator> validators;
 
     @Autowired
+    private VehicleService vehicleService;
+
+    @Autowired
     public RentalService(RentalRepository rentalRepository, List<RentalValidator> validators) {
         this.rentalRepository = rentalRepository;
         this.validators = validators;
@@ -27,6 +31,9 @@ public class RentalService {
     @Transactional
     public RentalModel validateAndSave(RentalModel rental) {
         validators.forEach(validator -> validator.validate(rental));
+        System.out.println(rental.getVehicle());
+        vehicleService.vehicleAvailable(rental.getVehicle());
+
         return rentalRepository.save(rental);
     }
 
@@ -36,6 +43,7 @@ public class RentalService {
         rental.setStatus(StatusRentalType.valueOf(rentalDTO.status()));
         rental.setDate(rentalDTO.date() != null ? rentalDTO.date() : LocalDateTime.now());
         validators.forEach(validator -> validator.validate(rental));
+
         return rentalRepository.save(rental);
     }
 

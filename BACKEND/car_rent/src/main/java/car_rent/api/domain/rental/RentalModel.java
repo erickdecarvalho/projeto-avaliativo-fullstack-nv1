@@ -31,7 +31,7 @@ public class RentalModel {
     @NotNull(message = "O cliente é obrigatório.")
     private CustomerModel customer;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,mappedBy = "rental")
     @NotNull(message = "O veículo é obrigatório.")
     private VehicleModel vehicle;
 

@@ -3,6 +3,7 @@ package car_rent.api.application.rental;
 import car_rent.api.domain.rental.RentalModel;
 import car_rent.api.domain.rental.StatusRentalType;
 import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,9 @@ public class RentalController {
 
     @PostMapping
     public ResponseEntity<RentalModel> createRental(@RequestBody RentalModel rental) {
+
         RentalModel createdRental = rentalService.validateAndSave(rental);
+
         return new ResponseEntity<>(createdRental, HttpStatus.CREATED);
     }
 

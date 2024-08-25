@@ -58,5 +58,10 @@ public class VehicleService {
         return vehicle;
     }
 
+    public void vehicleAvailable (VehicleModel vehicle){
+        if (vehicle.getRented()) throw new RuntimeException("Vehicle already rented!");
+        else vehicle.setRented(true);
+    }
+
 
 }
