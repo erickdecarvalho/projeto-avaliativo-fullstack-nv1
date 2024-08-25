@@ -19,30 +19,41 @@ public class VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
-    public Page<VehicleModel> getVehicles(
-            VehicleType type, Integer minYear, Integer maxYear, String color, Boolean rented, Pageable pageable){
+    protected Page<VehicleModel> getVehicles(
+            VehicleType type,
+            Integer minYear,
+            Integer maxYear,
+            String color,
+            Boolean rented,
+            String brand,
+            String model,
+            Pageable pageable
+    ) {
+
         Specification<VehicleModel> spec = Specification
                 .where(VehicleSpecification.hasColor(color))
-                .and(VehicleSpecification.hasYear(minYear,maxYear))
+                .and(VehicleSpecification.hasYear(minYear, maxYear))
                 .and(VehicleSpecification.hasRented(rented))
-                .and(VehicleSpecification.hasType(type));
+                .and(VehicleSpecification.hasType(type))
+                .and(VehicleSpecification.hasBrand(brand))
+                .and(VehicleSpecification.hasModel(model));
 
-        return vehicleRepository.findAll(spec, pageable );
+        return vehicleRepository.findAll(spec, pageable);
     }
 
-    public VehicleModel getVehicleByID(Long id){
+    protected VehicleModel getVehicleByID(Long id){
 
         return vehicleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Vehicle not found."));
     }
 
     @Transactional
-    public VehicleModel addVehicles (VehicleModel vehicle){
+    protected VehicleModel addVehicles (VehicleModel vehicle){
         return vehicleRepository.save(vehicle);
     }
 
     @Transactional
-    public VehicleModel updateVehicle(Long id, VehicleDto vehicleDto) {
+    protected VehicleModel updateVehicle(Long id, VehicleDto vehicleDto) {
         VehicleModel vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Vehicle not found."));
 
@@ -51,7 +62,7 @@ public class VehicleService {
     }
 
     @Transactional
-    public VehicleModel deleteVehicle(Long id){
+    protected VehicleModel deleteVehicle(Long id){
         VehicleModel vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Vehicle not found."));
         vehicleRepository.delete(vehicle);

@@ -62,8 +62,6 @@ public class CustomerController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteCustomer (@PathVariable(value = "id")Long id){
         CustomerModel customer = customerService.deleteCustomer(id);
-
-        return ResponseEntity.status(HttpStatus.OK).body("Customer with id: " + customer.getId() + " deleted!");
-
+        return ResponseEntity.status(HttpStatus.OK).body("Cliente " + customer.getName() + " ddeletado com sucesso.");
     }
 }

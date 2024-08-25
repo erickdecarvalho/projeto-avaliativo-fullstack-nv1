@@ -1,7 +1,8 @@
 package car_rent.api.domain.rental;
 
-public enum StatusRentalType {
+public enum StatusType {
     AWAITING_VALIDATION,
     APPROVED,
-    REPPROVED;
+    REPROVED,
+    FINALIZED
 }

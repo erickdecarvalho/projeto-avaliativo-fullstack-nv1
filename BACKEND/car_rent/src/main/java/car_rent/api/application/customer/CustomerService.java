@@ -3,6 +3,7 @@ package car_rent.api.application.customer;
 import car_rent.api.shared.exceptions.NotFoundException;
 import car_rent.api.domain.customer.CustomerModel;
 import car_rent.api.infrastructure.CustomerRepository;
+import car_rent.api.shared.utils.Messages;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public Page<CustomerModel> getCustomers (String name, String phone, String email, Pageable pageable){
+    protected Page<CustomerModel> getCustomers (String name, String phone, String email, Pageable pageable){
         Specification<CustomerModel> spec = Specification
                 .where(CustomerScpecification.hasName(name))
                 .and(CustomerScpecification.hasPhone(phone))
@@ -26,21 +27,21 @@ public class CustomerService {
         return customerRepository.findAll(spec, pageable);
     }
 
-    public CustomerModel getCustomerById(Long id){
+    protected CustomerModel getCustomerById(Long id){
 
         return customerRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Customer not found."));
+                .orElseThrow(() -> new NotFoundException(Messages.notFount("Cliente")));
     }
 
     @Transactional
-    public CustomerModel addCustomer (CustomerModel customer){
+    protected CustomerModel addCustomer (CustomerModel customer){
         return customerRepository.save(customer);
     }
 
     @Transactional
-    public CustomerModel updateCustomer (Long id, CustomerDto customerDto){
+    protected CustomerModel updateCustomer (Long id, CustomerDto customerDto){
         CustomerModel customer = customerRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Customer not found."));
+                .orElseThrow(() -> new NotFoundException(Messages.notFount("Cliente")));
 
         BeanUtils.copyProperties(customerDto, customer);
         customerRepository.save(customer);
@@ -49,9 +50,9 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerModel deleteCustomer(Long id){
+    protected CustomerModel deleteCustomer(Long id){
         CustomerModel customer = customerRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Customer not found."));
+                .orElseThrow(() -> new NotFoundException(Messages.notFount("Cliente")));
         customerRepository.delete(customer);
         return customer;
     }

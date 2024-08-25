@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -31,13 +32,24 @@ public class RentalModel {
     @NotNull(message = "O cliente é obrigatório.")
     private CustomerModel customer;
 
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "O status do aluguel é obrigatório.")
+    private StatusType status = StatusType.AWAITING_VALIDATION;
+
+    private String statusDescription;
+
+    @NotNull(message = "O preço é obrigatório.")
+    private BigDecimal price;
+
+    @NotNull(message = "A data de início é obrigatória.")
+    @FutureOrPresent(message = "A data de início não pode estar no passado.")
+    private LocalDateTime startDate;
+
+    @NotNull(message = "A data de término é obrigatória.")
+    @FutureOrPresent(message = "A data de término não pode estar no passado.")
+    private LocalDateTime finalDate;
+
     @OneToOne(fetch = FetchType.LAZY)
     @NotNull(message = "O veículo é obrigatório.")
     private VehicleModel vehicle;
-
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "O status do aluguel é obrigatório.")
-    private StatusRentalType status = StatusRentalType.AWAITING_VALIDATION;
-
-    private String statusDescription;
 }

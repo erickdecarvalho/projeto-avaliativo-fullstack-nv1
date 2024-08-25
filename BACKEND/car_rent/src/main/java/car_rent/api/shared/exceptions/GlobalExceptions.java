@@ -56,7 +56,7 @@ public class GlobalExceptions {
         if (rawMessage.contains("duplicate key value violates unique constraint")) {
             String[] parts = rawMessage.split("Key ");
             String keyInfo = parts[1].split(" already exists")[0].trim();
-            return "O campo " + keyInfo + " já está em uso. Escolha outro valor.";
+            return "O " + keyInfo + " já está em uso. Escolha outro valor.";
         }
         return "Erro de integridade de dados: " + rawMessage;
     }

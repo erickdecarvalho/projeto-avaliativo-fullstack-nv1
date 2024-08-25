@@ -1,4 +1,4 @@
-package car_rent.api.domain.rental.validators;
+package car_rent.api.domain.rental.validation;
 
 import car_rent.api.domain.rental.RentalModel;
 

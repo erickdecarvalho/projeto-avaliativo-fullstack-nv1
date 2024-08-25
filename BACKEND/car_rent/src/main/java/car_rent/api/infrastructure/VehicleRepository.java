@@ -10,6 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<VehicleModel, Long>, PagingAndSortingRepository<VehicleModel, Long>, JpaSpecificationExecutor<VehicleModel>  {
-
-    Optional<VehicleModel> findById(Long id);
+//    Optional<VehicleModel> findById(Long id);
 }

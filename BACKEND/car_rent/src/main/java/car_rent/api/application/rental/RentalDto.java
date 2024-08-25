@@ -1,14 +1,15 @@
 package car_rent.api.application.rental;
 
-import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record RentalDto(
-        LocalDateTime date,
+        Long id,
         Long customerId,
         Long vehicleId,
+        LocalDateTime rentalDate,
         String status,
-        String statusDescription,
-        Long id
-) {
-}
+        BigDecimal price,
+        LocalDateTime startDate,
+        LocalDateTime finalDate
+) {}

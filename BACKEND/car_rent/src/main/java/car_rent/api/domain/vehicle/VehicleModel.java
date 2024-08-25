@@ -37,11 +37,13 @@ public class VehicleModel {
     @NotBlank(message = "Marca é obrigatória.")
     private String brand;
 
+    @NotBlank(message = "Modelo é obrigatório.")
+    private String model;
+
     @Column(unique = true)
     @NotBlank(message = "Placa é obrigatória.")
     private String licensePlate;
 
-    @NotNull
     private Boolean rented = false;
 
     @OneToOne
