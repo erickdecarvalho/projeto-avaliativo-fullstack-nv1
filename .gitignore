@@ -9,6 +9,7 @@
 # Compiled files
 **/*.js
 **/*.js.map
+!tailwind.config.js
 
 # Angular cache
 **/.angular/cache/
@@ -86,3 +87,5 @@ Thumbs.db
 
 # Exclude Maven wrapper but include build configuration
 !.mvn/wrapper/maven-wrapper.jar
+
+frontend/car_rent/public/v-dashboard
