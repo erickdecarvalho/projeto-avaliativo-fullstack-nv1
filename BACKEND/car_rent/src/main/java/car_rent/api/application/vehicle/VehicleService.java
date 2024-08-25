@@ -4,6 +4,7 @@ import car_rent.api.shared.exceptions.NotFoundException;
 import car_rent.api.domain.vehicle.VehicleType;
 import car_rent.api.domain.vehicle.VehicleModel;
 import car_rent.api.infrastructure.VehicleRepository;
+import car_rent.api.shared.utils.Messages;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class VehicleService {
     protected VehicleModel getVehicleByID(Long id){
 
         return vehicleRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Vehicle not found."));
+                .orElseThrow(() -> new NotFoundException(Messages.notFount("Veículo")));
     }
 
     @Transactional
@@ -53,18 +54,24 @@ public class VehicleService {
     }
 
     @Transactional
-    protected VehicleModel updateVehicle(Long id, VehicleDto vehicleDto) {
+    public VehicleModel updateVehicle(Long id, VehicleDto vehicleDto) {
         VehicleModel vehicle = vehicleRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Vehicle not found."));
+                .orElseThrow(() -> new NotFoundException(Messages.notFount("Veículo")));
 
-        BeanUtils.copyProperties(vehicleDto, vehicle);
+        vehicle.setColor(vehicleDto.color());
+        vehicle.setYear(vehicleDto.year());
+        vehicle.setBrand(vehicleDto.brand());
+        vehicle.setModel(vehicleDto.model());
+        vehicle.setLicensePlate(vehicleDto.licensePlate());
+        vehicle.setRented(vehicleDto.rented());
+
         return vehicleRepository.save(vehicle);
     }
 
     @Transactional
     protected VehicleModel deleteVehicle(Long id){
         VehicleModel vehicle = vehicleRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Vehicle not found."));
+                .orElseThrow(() -> new NotFoundException(Messages.notFount("Veículo")));
         vehicleRepository.delete(vehicle);
         return vehicle;
     }

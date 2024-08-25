@@ -1,13 +1,10 @@
 package car_rent.api.application.vehicle;
 
-import car_rent.api.application.rental.RentalDto;
-import car_rent.api.application.rental.RentalRequestDto;
-import car_rent.api.application.rental.RentalService;
-import car_rent.api.domain.rental.RentalModel;
 import car_rent.api.domain.vehicle.VehicleType;
 import car_rent.api.domain.vehicle.VehicleModel;
 import car_rent.api.shared.utils.PaginationHeaders;
 import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +13,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -50,6 +49,15 @@ public class VehicleController {
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.getVehicleByID(id));
     }
 
+    @PostMapping
+    public ResponseEntity<VehicleModel> addVehicle (@RequestBody @Valid VehicleDto vehicleDto){
+        VehicleModel vehicle = new VehicleModel();
+        BeanUtils.copyProperties(vehicleDto,vehicle);
+        VehicleModel created = vehicleService.addVehicles(vehicle);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(location).body(created);
+    }
+
     @PutMapping(path = "/{id}")
     public ResponseEntity<VehicleModel> updateVehicle(@PathVariable(value = "id") Long id, @RequestBody @Valid VehicleDto vehicleDto) {
         VehicleModel updatedVehicle = vehicleService.updateVehicle(id, vehicleDto);
@@ -59,6 +67,6 @@ public class VehicleController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteVehicle (@PathVariable(value = "id")Long id){
         VehicleModel vehicle = vehicleService.deleteVehicle(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Vehicle with id: " + vehicle.getId() + " deleted!");
+        return ResponseEntity.status(HttpStatus.OK).body("Veículo de placa" + vehicle.getLicensePlate() + " deletado com sucesso.");
     }
 }
