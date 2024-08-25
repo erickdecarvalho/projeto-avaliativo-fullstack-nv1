@@ -3,15 +3,15 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgClass} from "@angular/common";
 
 @Component({
-  selector: 'sidebar',
+  selector: 'rent-navbar',
   standalone: true,
   imports: [
     FaIconComponent,
     NgClass
   ],
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.sass'
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.sass'
 })
-export class SidebarComponent {
+export class NavbarComponent {
   @Input() isSidebarExpanded: boolean = true;
 }

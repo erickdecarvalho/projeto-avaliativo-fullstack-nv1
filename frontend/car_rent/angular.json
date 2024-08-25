@@ -28,13 +28,12 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/app/assets"
               }
             ],
             "styles": [
               "src/app/assets/stylesheets/style.tailwind.css",
-              "src/app/assets/stylesheets/styles.sass",
-              "src/app/assets/stylesheets/styles.css"
+              "src/app/assets/stylesheets/styles.sass"
             ],
             "scripts": []
           },
@@ -89,13 +88,12 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/app/assets"
               }
             ],
             "styles": [
               "src/app/assets/stylesheets/style.tailwind.css",
-              "src/app/assets/stylesheets/styles.sass",
-              "src/app/assets/stylesheets/styles.css"
+              "src/app/assets/stylesheets/styles.sass"
             ],
             "scripts": []
           }
