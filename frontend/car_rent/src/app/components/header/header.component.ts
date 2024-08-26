@@ -1,31 +1,42 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {Router} from "@angular/router";
+import {CommonModule} from "@angular/common";
+import {NavbarComponent} from "../navbar/navbar.component";
 
 @Component({
-  selector: 'rent-header',
-  standalone: true,
-  imports: [
-    FaIconComponent
-  ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.sass'
+    selector: 'rent-header',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FaIconComponent,
+        NavbarComponent
+    ],
+    templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-  dropdownOpen = false;
-  isOpen = false;
+    dropdownOpen: boolean = false;
 
-  constructor(private router: Router) {}
+    constructor(private router: Router) {
+    }
 
-  toggleDropdown() {
-    this.dropdownOpen = !this.dropdownOpen;
-  }
+    toggleDropdown(): void {
+        this.dropdownOpen = !this.dropdownOpen;
+    }
 
-  closeDropdown() {
-    this.dropdownOpen = false;
-  }
+    logout(): void {
+        this.router.navigate(['/']).then((): void => this.closeDropdown());
+    }
 
-  logout() {
-    this.router.navigate(['/']);
-  }
+    protected closeDropdown(): void {
+        this.dropdownOpen = false;
+    }
+
+    @HostListener('document:click', ['$event'])
+    onClick(event: Event): void {
+        const targetElement = event.target as HTMLElement;
+        if (!targetElement.closest('.relative') && this.dropdownOpen) {
+            this.closeDropdown();
+        }
+    }
 }

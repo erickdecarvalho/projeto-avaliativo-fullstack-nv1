@@ -1,13 +1,13 @@
-<!--&lt;!&ndash;<sidebar [isNavExpanded]="isNavbarExpanded" class="transition-all duration-300"></sidebar>&ndash;&gt;-->
-<!--<header class="px-10">-->
-<!--    <nav class="container mx-auto flex items-center justify-between p-4">-->
-<!--        <ul class="flex space-x-4 items-center">-->
-<!--            <li><a href="#">Sobre</a></li>-->
-<!--            <li><a href="#">Blog</a></li>-->
-<!--            <li><a href="#">Contato</a></li>-->
-<!--        </ul>-->
-<!--    </nav>-->
-<!--</header>-->
-<rent-header />
-<router-outlet/>
+<div class="flex flex-1 h-full bg-gray-200 font-roboto">
+    <div class="flex flex-1 flex-col overflow-hidden">
+        <div *ngIf="showHeader" class="w-full max-w-screen-xl mx-auto px-6">
+            <rent-header></rent-header>
+        </div>
 
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+            <div class="w-full max-w-screen-xl mx-auto px-6 py-8">
+                <router-outlet></router-outlet>
+            </div>
+        </main>
+    </div>
+</div>

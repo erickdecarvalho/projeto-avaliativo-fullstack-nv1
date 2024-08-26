@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-new-user',
+  selector: 'rent-new-user',
   standalone: true,
   imports: [],
-  templateUrl: './new-user.component.html',
-  styleUrl: './new-user.component.sass'
+  templateUrl: './new-user.component.html'
 })
 export class NewUserComponent {
 
