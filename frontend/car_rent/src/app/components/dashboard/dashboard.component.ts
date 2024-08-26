@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {SidebarComponent} from "../sidebar/sidebar.component";
+import {NavbarComponent} from "../navbar/navbar.component";
 import {ThemeService} from "../../services/theme.service";
 import {RouterOutlet} from "@angular/router";
 
@@ -9,7 +9,7 @@ import {RouterOutlet} from "@angular/router";
     standalone: true,
     imports: [
         FaIconComponent,
-        SidebarComponent,
+        NavbarComponent,
         RouterOutlet
     ],
     templateUrl: './dashboard.component.html',
