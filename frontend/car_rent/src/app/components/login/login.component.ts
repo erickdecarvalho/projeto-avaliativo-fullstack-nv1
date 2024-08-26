@@ -15,9 +15,9 @@ export class LoginComponent {
   email: string = 'edward.elric@mail.com';
   password: string = '#fullMetal_@lchmist!#';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
-  login() {
+  login(): void {
     console.log('Login:', this.email, this.password);
     this.router.navigate(['/dashboard']);
   }
