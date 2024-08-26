@@ -7,6 +7,8 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {NewUserComponent} from "./components/user/new-user/new-user.component";
 import {ThemeService} from "./services/theme.service";
 import {HeaderComponent} from "./components/header/header.component";
+import {LoginComponent} from "./components/login/login.component";
+import {FormsModule} from "@angular/forms";
 
 @Component({
     selector: 'root',
@@ -15,8 +17,10 @@ import {HeaderComponent} from "./components/header/header.component";
         DashboardComponent,
         FaIconComponent,
         HeaderComponent,
+        LoginComponent,
         NavbarComponent,
         NewUserComponent,
+        FormsModule,
         RouterOutlet
     ],
     templateUrl: './app.component.html',
